@@ -1,42 +1,496 @@
-#root {
-  max-width: 1280px;
+/* ============================================
+   App Layout & Navigation
+   ============================================ */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 60px;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-brand {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.4rem 0;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--color-text);
+  border-bottom-color: var(--color-primary);
+}
+
+.app-main {
+  flex: 1;
+}
+
+/* ============================================
+   Home Page
+   ============================================ */
+
+.home-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.hero h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero p {
+  font-size: 1.15rem;
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+  box-shadow: 0 4px 20px rgba(108, 114, 255, 0.3);
+}
+
+.btn-secondary {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover {
+  background: var(--color-surface-hover);
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.feature-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: border-color 0.2s;
+}
+
+.feature-card:hover {
+  border-color: var(--color-primary);
+}
+
+.feature-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.feature-card p {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
+
+/* ============================================
+   Tutorials Page
+   ============================================ */
+
+.tutorials-page {
+  max-width: 860px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* ============================================
+   Interactive Tutorial
+   ============================================ */
+
+.interactive-tutorial {
+  padding-bottom: 4rem;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.tutorial-header {
+  margin-bottom: 2rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.tutorial-meta {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
-.card {
-  padding: 2em;
+.difficulty {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
 }
 
-.read-the-docs {
-  color: #888;
+.difficulty.beginner {
+  background: rgba(52, 211, 153, 0.15);
+  color: var(--color-success);
+}
+
+.difficulty.intermediate {
+  background: rgba(251, 191, 36, 0.15);
+  color: var(--color-warning);
+}
+
+.difficulty.advanced {
+  background: rgba(244, 114, 182, 0.15);
+  color: var(--color-accent);
+}
+
+.duration {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  padding: 0.2rem 0.6rem;
+  background: var(--color-surface);
+  border-radius: 4px;
+}
+
+.tutorial-header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.tutorial-description {
+  color: var(--color-text-secondary);
+  margin-bottom: 1rem;
+}
+
+.progress-bar {
+  height: 4px;
+  background: var(--color-surface);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 0.4rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+.progress-text {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+/* ============================================
+   Tutorial Step
+   ============================================ */
+
+.tutorial-step {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.tutorial-step.active {
+  border-color: var(--color-primary);
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: none;
+  border: none;
+  color: var(--color-text);
+  cursor: pointer;
+  text-align: left;
+  font-size: 1rem;
+}
+
+.step-header:hover {
+  background: var(--color-surface-hover);
+}
+
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+}
+
+.step-title {
+  flex: 1;
+  font-weight: 600;
+}
+
+.step-chevron {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  transition: transform 0.2s;
+}
+
+.step-chevron.open {
+  transform: rotate(180deg);
+}
+
+.step-content {
+  padding: 0 1.25rem 1.25rem;
+}
+
+.step-description {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+/* ============================================
+   Language Tabs
+   ============================================ */
+
+.language-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.lang-tab {
+  padding: 0.5rem 1rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.lang-tab:hover {
+  color: var(--color-text);
+}
+
+.lang-tab.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+/* ============================================
+   Install Block
+   ============================================ */
+
+.install-block {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.6rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.install-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.install-block code {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--color-success);
+}
+
+/* ============================================
+   Code Block
+   ============================================ */
+
+.code-block {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+.code-block pre {
+  padding: 1rem !important;
+  margin: 0 !important;
+  border-radius: var(--radius) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 0.82rem !important;
+  line-height: 1.6 !important;
+  overflow-x: auto;
+}
+
+.line-number {
+  display: inline-block;
+  width: 2rem;
+  text-align: right;
+  margin-right: 1rem;
+  color: #4a5073;
+  user-select: none;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: rgba(108, 114, 255, 0.2);
+  color: var(--color-primary);
+  border: 1px solid rgba(108, 114, 255, 0.3);
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 5;
+  transition: background 0.15s;
+}
+
+.copy-btn:hover {
+  background: rgba(108, 114, 255, 0.35);
+}
+
+/* ============================================
+   Output Section
+   ============================================ */
+
+.output-section {
+  margin-top: 0.25rem;
+}
+
+.run-btn {
+  padding: 0.5rem 1.2rem;
+  background: var(--color-success);
+  color: #0f1117;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.run-btn:hover {
+  opacity: 0.85;
+}
+
+.expected-output {
+  margin-top: 0.75rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.output-label {
+  display: block;
+  padding: 0.4rem 1rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.expected-output pre {
+  padding: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--color-success);
+  overflow-x: auto;
+}
+
+/* ============================================
+   API Reference Page
+   ============================================ */
+
+.api-reference-page {
+  height: calc(100vh - 60px);
+}
+
+.api-reference-page .sl-elements {
+  height: 100%;
 }
