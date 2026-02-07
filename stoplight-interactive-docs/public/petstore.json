@@ -1,0 +1,210 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Doodle API",
+    "version": "1.0.0",
+    "description": "A sample API for managing a collection of technical doodles and illustrations. Use this API to browse, search, and manage doodle assets.",
+    "contact": {
+      "name": "Doodle API Support",
+      "email": "support@example.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.doodles.example.com/v1",
+      "description": "Production"
+    }
+  ],
+  "paths": {
+    "/doodles": {
+      "get": {
+        "operationId": "listDoodles",
+        "summary": "List all doodles",
+        "description": "Returns a paginated list of doodles, optionally filtered by category or tag.",
+        "tags": ["Doodles"],
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Filter by category (e.g. algorithms, webdev, ml)",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "tag",
+            "in": "query",
+            "description": "Filter by tag",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Max number of results to return",
+            "schema": { "type": "integer", "default": 20, "maximum": 100 }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Number of results to skip for pagination",
+            "schema": { "type": "integer", "default": 0 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list of doodles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Doodle" }
+                    },
+                    "total": { "type": "integer" },
+                    "limit": { "type": "integer" },
+                    "offset": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createDoodle",
+        "summary": "Create a new doodle",
+        "description": "Upload a new doodle with metadata. Requires authentication.",
+        "tags": ["Doodles"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateDoodleRequest" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Doodle created successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Doodle" }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
+    "/doodles/{doodleId}": {
+      "get": {
+        "operationId": "getDoodle",
+        "summary": "Get a doodle by ID",
+        "description": "Returns a single doodle by its unique identifier.",
+        "tags": ["Doodles"],
+        "parameters": [
+          {
+            "name": "doodleId",
+            "in": "path",
+            "required": true,
+            "description": "Unique doodle identifier",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested doodle",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Doodle" }
+              }
+            }
+          },
+          "404": { "description": "Doodle not found" }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "operationId": "listCategories",
+        "summary": "List all categories",
+        "description": "Returns a list of all available doodle categories.",
+        "tags": ["Categories"],
+        "responses": {
+          "200": {
+            "description": "A list of categories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Category" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "Doodle": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "example": "doodle_abc123" },
+          "title": { "type": "string", "example": "Big O Notation" },
+          "description": { "type": "string", "example": "A visual explanation of Big O time complexity." },
+          "category": { "type": "string", "example": "algorithms" },
+          "tags": {
+            "type": "array",
+            "items": { "type": "string" },
+            "example": ["algorithms", "big-o", "complexity"]
+          },
+          "image_url": { "type": "string", "format": "uri", "example": "https://api.doodles.example.com/v1/images/doodle_abc123.png" },
+          "formats": {
+            "type": "object",
+            "properties": {
+              "png": { "type": "string", "format": "uri" },
+              "tiff": { "type": "string", "format": "uri" }
+            }
+          },
+          "created_at": { "type": "string", "format": "date-time" },
+          "updated_at": { "type": "string", "format": "date-time" }
+        },
+        "required": ["id", "title", "category", "image_url"]
+      },
+      "CreateDoodleRequest": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string", "example": "Hash Tables Explained" },
+          "description": { "type": "string", "example": "A hand-drawn guide to hash table internals." },
+          "category": { "type": "string", "example": "algorithms" },
+          "tags": {
+            "type": "array",
+            "items": { "type": "string" },
+            "example": ["algorithms", "hash-table", "data-structures"]
+          },
+          "image_base64": { "type": "string", "description": "Base64-encoded image data" }
+        },
+        "required": ["title", "category", "image_base64"]
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "slug": { "type": "string", "example": "algorithms" },
+          "name": { "type": "string", "example": "Algorithms & Data Structures" },
+          "description": { "type": "string", "example": "Visual explanations of common algorithms and data structures." },
+          "doodle_count": { "type": "integer", "example": 12 }
+        }
+      }
+    }
+  }
+}
